@@ -1,0 +1,29 @@
+# SConscript
+
+Import('env Automatic_Program')
+env=env.Copy(warnings_are_errors=1)
+env.Append(CXXFLAGS=[ "-O3","-std=c++14", '-DENABLE_AVX_INSTRUCTION_SET','-DENABLE_DOUBLE_SUPPORT','-DENABLE_AVX512_INSTRUCTION_SET','-fma'] );
+env.Append(LINKFLAGS=["-mkl"])
+Automatic_Program(env,"scalar_test",
+                  [
+                      "./scalar_test.cpp",
+                      env.Object("../Reordering_Utilities/REORDERING.cpp"),
+                      env.Object("../Macroblock_Utilities/BlockedCSCSymmetricMatrix3_Utilities.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Cholesky.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Blocked_Forwards_Substitution.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Blocked_Forwards_Substitution_3x3.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Blocked_Forwards_Substitution_Matrix.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Blocked_Backwards_Substitution.cpp")
+                  ])
+
+Automatic_Program(env,"block_test",
+                  [
+                      "./block_test.cpp",
+                      env.Object("../Reordering_Utilities/REORDERING.cpp"),
+                      env.Object("../Macroblock_Utilities/BlockedCSCSymmetricMatrix3_Utilities.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Cholesky.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Blocked_Forwards_Substitution.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Blocked_Forwards_Substitution_3x3.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Blocked_Forwards_Substitution_Matrix.cpp"),
+                      env.Object("../Macroblock_Utilities/Sparse_Blocked_Backwards_Substitution.cpp")
+                  ])
