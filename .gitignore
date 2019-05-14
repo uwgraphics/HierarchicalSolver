@@ -9,3 +9,5 @@ config.log
 build/
 SConstruct
 SConstruct.options
+
+*nocona
