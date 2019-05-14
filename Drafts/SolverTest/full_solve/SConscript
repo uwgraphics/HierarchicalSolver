@@ -1,0 +1,35 @@
+# SConscript
+
+Import('env Automatic_Program')
+env=env.Copy(warnings_are_errors=1)
+env.Append(CXXFLAGS=[ "-O3","-std=c++14", '-DENABLE_AVX_INSTRUCTION_SET','-DENABLE_DOUBLE_SUPPORT','-DENABLE_AVX512_INSTRUCTION_SET','-fma'] );
+env.Append(LINKFLAGS=["-mkl"]);
+
+Automatic_Program(env,"Full_Solve_Test",
+                  [
+                      "./main.cpp",
+                      "../Hierarchical_Cholesky.cpp",
+                      "../Subdomain_Topology.cpp",
+                      "../Aggregate_Topology.cpp",
+                      "../macro_block_solver.cpp",
+                      "../BLOCK_ELASTICITY_OPERATIONS.cpp",
+                      "../Macroblock_Utilities/Sparse_Cholesky.cpp",
+                      "../Macroblock_Utilities/Sparse_Cholesky_Partial.cpp",
+                      "../Macroblock_Utilities/Sparse_Blocked_Forwards_Substitution.cpp",
+                      "../Macroblock_Utilities/Sparse_Blocked_Backwards_Substitution.cpp",
+                      "../Macroblock_Utilities/BlockedCSCSymmetricMatrix3_Utilities.cpp",
+                      "../Macroblock_Utilities/BlockedCSRMatrix3_Utilities.cpp",
+                      "../Macroblock_Utilities/Sparse_Cholesky.cpp",
+                      "../Macroblock_Utilities/Sparse_Blocked_Forwards_Substitution.cpp",
+                      "../Macroblock_Utilities/Sparse_Blocked_Backwards_Substitution.cpp",
+                      "../Macroblock_Utilities/Sparse_Blocked_CSR_Multiply.cpp",
+                      "../Macroblock_Utilities/BlockedMatrixNXN_Utilities.cpp",
+                      "../Macroblock_Utilities/BlockedMatrixNXN_Cholesky.cpp",
+                      "../Macroblock_Utilities/Kernels/Matrix_Times_Transpose/Matrix_Times_Transpose.cpp",
+                      "../Macroblock_Utilities/Kernels/Add_Force_Single_QPoint/Add_Force_Single_QPoint.cpp",
+                      "../Macroblock_Utilities/Kernels/Update_Position_Based_State/Update_Position_Based_State.cpp",
+                      "../Macroblock_Utilities/Kernels/Weighted_Accumulation/Weighted_Accumulation.cpp",
+                      "../Macroblock_Utilities/Kernels/Compute_Cell_Matrix/Compute_Cell_Matrix.cpp",
+                      "../Macroblock_Data_Helper.cpp",
+                      "../Diag_Solve.cpp"
+                  ])
